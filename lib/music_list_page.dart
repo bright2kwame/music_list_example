@@ -83,100 +83,85 @@ class _MuscListPageState extends State<MuscListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        elevation: 4,
-        backgroundColor: Colors.black,
-        leadingWidth: 150,
-        leading: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8),
-          child: Text(
-            "Tracks",
-            style: TextStyle(
-                color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-        child: ListView.separated(
-            itemBuilder: (BuildContext context, int pos) {
-              Map<String, dynamic> item = feedItems[pos];
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+      child: ListView.separated(
+          itemBuilder: (BuildContext context, int pos) {
+            Map<String, dynamic> item = feedItems[pos];
 
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadiusDirectional.circular(
-                        item["is_audio"] ? 40 : 12),
-                    child: SizedBox(
-                      height: 80,
-                      width: 80,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                              left: 0,
-                              right: 0,
-                              top: 0,
-                              bottom: 0,
-                              child: Image.network(
-                                item["profile"],
-                                fit: BoxFit.cover,
-                              )),
-                          Positioned(
-                              left: 0,
-                              right: 0,
-                              top: 0,
-                              bottom: 0,
-                              child: item["is_audio"]
-                                  ? const Icon(
-                                      Icons.play_arrow,
-                                      size: 40,
-                                      color: Colors.white,
-                                    )
-                                  : Container())
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadiusDirectional.circular(
+                      item["is_audio"] ? 40 : 12),
+                  child: SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: Image.network(
+                              item["profile"],
+                              fit: BoxFit.cover,
+                            )),
+                        Positioned(
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            child: item["is_audio"]
+                                ? const Icon(
+                                    Icons.play_arrow,
+                                    size: 40,
+                                    color: Colors.white,
+                                  )
+                                : Container())
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: RichText(
+                      text: TextSpan(
+                        text: "${item["name"]}\n",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 18),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: item["title"],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white.withOpacity(0.5),
+                                  fontSize: 14)),
                         ],
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: RichText(
-                        text: TextSpan(
-                          text: "${item["name"]}\n",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: item["title"],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.white.withOpacity(0.5),
-                                    fontSize: 14)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.more_horiz,
-                    color: Colors.white,
-                  ),
-                ],
-              );
-            },
-            separatorBuilder: (BuildContext context, int pos) {
-              return const SizedBox(
-                height: 16,
-              );
-            },
-            itemCount: feedItems.length),
-      ),
+                ),
+                const Icon(
+                  Icons.more_horiz,
+                  color: Colors.white,
+                ),
+              ],
+            );
+          },
+          separatorBuilder: (BuildContext context, int pos) {
+            return const SizedBox(
+              height: 16,
+            );
+          },
+          itemCount: feedItems.length),
+
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
